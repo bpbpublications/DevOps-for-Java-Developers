@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- Parent POM -->
+    <parent>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-starter-parent</artifactId>
+        <version>2.5.4</version> <!-- Specify your desired Spring Boot version -->
+    </parent>
+
+    <!-- Project Information -->
+    <groupId>com.example</groupId>
+    <artifactId>my-spring-boot-app</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <!-- Standalone Properties -->
+    <name>My_Spring_Boot_Application</name> <!-- Specify your project name -->
+    <description>A sample Spring Boot application with JKube</description> <!-- Specify your project description -->
+
+    <!-- Properties -->
+    <properties>
+        <java.version>11</java.version>
+        <spring-native.version>0.10.5</spring-native.version> <!-- Specify your desired Spring Native version -->
+       ……………
+        <kubernetes-spring-starter.version>2.0.0</kubernetes-spring-starter.version> <!-- Specify the latest version of kubernetes-spring-starter -->
+        
+        <!-- Repositories -->
+        <repository>myuser</repository>
+    </properties>
+
+    <!-- Dependencies -->
+    <dependencies>
+        <!-- Add your Spring Boot dependencies here -->
+        ………….
+        <!-- Add Dekorate Maven dependency for Spring Boot -->
+        <dependency>
+            <groupId>io.dekorate</groupId>
+            <artifactId>dekorate-spring-boot</artifactId>
+            <version>1.0.0</version> <!-- Specify the desired version -->
+        </dependency>
+    </dependencies>
+    
+    <!-- Build Configuration -->
+   <build>
+  ………..
+   </build>
+</project>

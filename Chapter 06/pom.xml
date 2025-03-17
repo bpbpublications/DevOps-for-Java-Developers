@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>com.example</groupId>
+  <artifactId>my-project</artifactId>
+  <version>1.0.0</version>
+  <properties>
+    <!-- JDK Information -->
+    <java.version>17</java.version>
+    <java.vendor>${java.vendor}</java.vendor>
+
+    <!-- OS Information -->
+    <os.name>${os.name}</os.name>
+    <os.arch>${os.arch}</os.arch>
+    <os.version>${os.version}</os.version>
+
+    <!-- Build Timestamp -->
+    <build.timestamp>${maven.build.timestamp}</build.timestamp>
+
+    <!-- Git Commit Hash -->
+    <scm.commit>${git.commit.id}</scm.commit>
+  </properties>
+
+  <build>
+    <plugins>
+      <!-- Git Commit ID Plugin -->
+      <plugin>
+        <groupId>pl.project13.maven</groupId>
+        <artifactId>git-commit-id-plugin</artifactId>
+        <version>4.0.0</version>
+        <executions>
+          <execution>
+            <id>get-the-git-infos</id>
+            <goals>
+              <goal>revision</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <verbose>false</verbose>
+          <dateFormat>yyyy-MM-dd HH:mm:ss</dateFormat>
+          <injectAllReactorProjects>true</injectAllReactorProjects>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+</project>

@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: my-app
+    version: blue
+  name: my-app-blue
+spec:
+  replicas: 3  # Number of replicas for the blue version
+  selector:
+    matchLabels:
+      app: my-app
+      version: blue  # Label indicating the blue version
+  template:
+    metadata:
+      labels:
+        app: my-app
+        version: blue  # Label indicating the blue version
+    spec:
+      containers:
+        - name: my-app
+          image: repo/demo:0.0.1-SNAPSHOT  # Image for the blue version
+          imagePullPolicy: IfNotPresent  # Use the specified imagePullPolicy
+          ports:
+            - containerPort: 8080

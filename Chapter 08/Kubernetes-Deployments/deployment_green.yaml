@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: my-app
+    version: green
+  name: my-app-green
+spec:
+  replicas: 3  # Number of replicas for the green version
+  selector:
+    matchLabels:
+      app: my-app
+      version: green  # Label indicating the green version
+  template:
+    metadata:
+      labels:
+        app: my-app
+        version: green  # Label indicating the green version
+    spec:
+      containers:
+        - name: my-app
+          image: repo/demo:0.0.1-SNAPSHOT  # Image for the green version
+          imagePullPolicy: IfNotPresent  # Use the specified imagePullPolicy
+          ports:
+            - containerPort: 8080

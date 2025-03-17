@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    app.dekorate.io/vcs-url: "https://github.com/your/repo.git"  # Replace with your VCS URL
+  labels:
+    app.kubernetes.io/name: My_Spring_Boot_Application
+    app.kubernetes.io/version: 0.0.1-SNAPSHOT
+  name: My_Spring_Boot_Application_Service
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+  selector:
+    app.kubernetes.io/name: My_Spring_Boot_Application
+    app.kubernetes.io/version: 0.0.1-SNAPSHOT
+  type: LoadBalancer

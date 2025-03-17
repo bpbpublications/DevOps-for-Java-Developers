@@ -1,0 +1,48 @@
+plugins {  
+    id 'java'
+    id 'maven-publish'
+}
+
+group 'com.example'
+version '1.0.0'
+
+description = 'My Project Description'
+
+sourceCompatibility = JavaVersion.VERSION_17  
+
+repositories {  
+    mavenCentral()
+    mavenLocal()
+}
+
+dependencies {  
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.0'
+    // Add any other dependencies your project needs
+}
+
+test {
+    useJUnitPlatform()
+}
+
+publishing {
+    publications {
+        maven(MavenPublication) {
+            groupId = 'com.example'
+            artifactId = 'my-project'
+            version = '1.0.0'
+            description = 'My Project Description'
+
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            url = uri('file://' + "${buildDir}/repo")
+        }
+        mavenLocal()
+    }
+}
+
+tasks.withType(JavaCompile) {  
+    options.encoding = 'UTF-8'
+}

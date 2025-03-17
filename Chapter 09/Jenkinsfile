@@ -1,0 +1,53 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                git branch: 'main', url: 'https://github.com/your/repository.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                sh 'mvn clean package'
+            }
+        }
+        stage('Test') {
+            steps {
+                sh 'mvn test'
+            }
+            post {
+                always {
+                    junit 'target/Test-reports/**/*.xml'
+                }
+            }
+        }
+        stage('Deploy to Staging') {
+            steps {
+                sh Stage-deployment-script.sh #execute deployment script
+            }
+        }
+        stage('User Acceptance Testing (UAT)') {
+            steps {
+                sh 'mvn uat-test'  // Replace with your UAT testing command
+            }
+            post {
+                success {
+                   // Notify on successful UAT
+                   slackSend channel: '#notifications', color:'good', message: 'UAT passed!'
+                }
+                failure {
+                    // Notify on UAT failure
+                    slackSend channel: '#notifications', color: 'danger', message: 'UAT failed!'
+                }
+            }
+        }
+        stage('Continuous Deployment to Production') {
+            when {
+                expression { currentBuild.resultIsBetterOrEqualTo('SUCCESS') }
+            }
+            steps {
+                sh Production-deployment-script.sh #execute deployment script
+            }
+        }
+    }
+}

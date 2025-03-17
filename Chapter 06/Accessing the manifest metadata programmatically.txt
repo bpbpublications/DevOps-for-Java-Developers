@@ -1,0 +1,28 @@
+import java.io.IOException;
+import java.util.jar.Attributes;
+import java.util.jar.JarFile;
+import java.util.jar.Manifest;
+
+public class MetadataExample {
+    public static void main(String[] args) {
+        try (JarFile = new JarFile("your-artifact.jar")) {
+            Manifest = jarFile.getManifest();
+            Attributes = manifest.getMainAttributes();
+
+            String jdkVersion = attributes.getValue("jdk.version");
+            String osName = attributes.getValue("os.name");
+            String osArch = attributes.getValue("os.arch");
+            String buildTimestamp = attributes.getValue("build.timestamp");
+            String commitHash = attributes.getValue("commit.hash");
+
+            // Use the metadata values as needed
+            System.out.println("JDK Version: " + jdkVersion);
+            System.out.println("OS Name: " + osName);
+            System.out.println("OS Arch: " + osArch);
+            System.out.println("Build Timestamp: " + buildTimestamp);
+            System.out.println("Commit Hash: " + commitHash);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+}

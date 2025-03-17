@@ -1,0 +1,71 @@
+Basic Git commands:
+======================================
+•	Branches: Branches are an important part of working with Git. Any commits you make will be made on the branch you are currently “checked out” to. Use git status to see which branch that is.
+$ git branch [branch-name]
+Creates a new branch
+git checkout [branch-name]
+navigate between the branches created by git branch command and updates the
+working directory
+git merge [branch]
+
+Joins changes from the named commits into the current branch. If the merged history is already a descendant of the current branch, a “fast-forward” is used to combine the history sequentially. Otherwise, a merge is created that combines the history; the user is prompted to resolve any conflicts. This command is also used by git pull to integrate changes from the remote repository.
+git branch -d [branch-name]
+
+Deletes the specified branch
+
+•	Create repositories and manage repositories: When starting out with a new repository, you only need to do it once; either locally, then push to GitHub, or by cloning an existing repository.
+$ git init
+
+Turn an existing directory into a git repository.
+$ git clone [url]
+
+Clone (download) a repository that already exists on GitHub server, including all of the files, branches, and commits.
+•	Synchronize changes: Synchronize your local repository with the remote repository on Github.com.
+$git fetch
+
+Downloads all history from the remote tracking branches.
+$ git push
+
+Uploads all local branch commits to GitHub and sends changes to the upstream remote repository from the local repository. Use this after a commit to push your changes to the upstream repository so other developers can see your changes.
+$ git pull
+
+Updates your current local working branch with all new commits from the corresponding remote branch on GitHub. git pull is a combination of git fetch and git merge.
+$ git rm
+
+Removes a file or directory, while also updating the version control record for the next commit. It is similar in use to the rm command in Unix and should be used instead of filesystem commands to keep version control history intact.
+$ git mv
+
+Renames or moves a file/directory, while also updating the version control record for the next commit. It is similar in use to the mv command in Unix and should be used instead of filesystem commands to keep version control history intact.
+$ git restore
+
+Allows you to restore files from the Git index if deleted or erroneously modified.
+
+•	Make changes: The following are a few Git commands used for making changes, inspecting file evolution, and managing version history within a Git repository. It covers actions such as comparing content between branches, viewing file history, displaying metadata and changes for a specific commit, adding files to version control, and committing changes to the local repository with descriptive messages. These commands are fundamental for tracking and managing the development progress of a project using Git version control:
+$ git diff [first-branch]...[second-branch] 
+
+Shows content differences between two branches:
+$ git log --follow [file] 
+
+Lists version history for a file, including renames:
+$ git log
+
+Lists version history for the current branch:
+	$ git show [commit] 
+
+Outputs metadata and content changes of the specified commit:
+$ git add [file] 
+
+Adds file revisions to version control, which can be either a new file or modifications to an existing file:
+$ git commit -m "[descriptive message]" 
+
+Saves changes in the working copy to the local repository. Before running commit, make sure to register all your file changes by calling add, mv, and rm on files that have been added, modified, renamed, or moved. You also need to specify a commit message that can be done on the command-line with the -m option.
+•	Rewrite history and redo commits: Rewriting branches, updating commits and clearing history.
+$ git rebase [branch]
+
+Apply any commits of the current branch ahead of the specified one. This command replays the commits from your current branch on the upstream branch. This is different from merge in which the result is a linear history rather than a merge commit, which can make the revision history easier to follow. The disadvantage is that rebase creates entirely new commits when it moves the history, so if the current branch contains changes that have previously been pushed, you are rewriting the history that the other clients may depend upon.
+$ git reset [commit]
+
+Undoes all commits after [commit], preserving changes locally:
+$ git reset --hard [commit]
+
+Clear staging area, rewrite working tree from specified commit.

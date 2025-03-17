@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: My_Spring_Boot_Application
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: My_Spring_Boot_Application
+  strategy:
+    type: Recreate 
+  revisionHistoryLimit: 15 
+  template:
+    metadata:
+      labels:
+        app: My_Spring_Boot_Application
+    spec:
+      containers:
+        - image: repo/demo:0.0.1-SNAPSHOT
+          name: My_Spring_Boot_Application
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP

@@ -1,0 +1,54 @@
+<project name="MyProject" default="package" basedir="."> 
+
+  <!-- Define property values --> 
+  <property name="src.dir" value="src/main/java" />
+  <property name="build.dir" value="target" />
+  <property name="output.dir" value="${build.dir}/classes" />
+  <property name="test.src.dir" value="src/test/java" />
+  <property name="test.output.dir" value="${build.dir}/test-classes" />
+  <property name="lib.dir" value="lib" />
+
+  <!-- Path to include jar files --> 
+  <path id="classpath">
+    <fileset dir="${lib.dir}">
+      <include name="**/*.jar" />
+    </fileset>
+  </path>
+  
+  <!-- Clean target -->
+  <target name="clean">
+    <delete dir="${build.dir}" />
+  </target>
+
+  <!-- Compile target --> 
+  <target name="compile" depends="clean">
+    <mkdir dir="${output.dir}" />
+    <javac srcdir="${src.dir}" destdir="${output.dir}" />
+  </target>
+
+  <!-- Compile-test target -->
+  <target name="compile-test" depends="compile">
+    <mkdir dir="${test.output.dir}" />
+    <javac srcdir="${test.src.dir}" destdir="${test.output.dir}">
+      <classpath refid="classpath"/>
+    </javac>
+  </target>
+
+  <!-- Test target --> 
+  <target name="test" depends="compile-test">
+    <junit printsummary="on" haltonfailure="no">
+      <classpath refid="classpath"/>
+      <batchtest fork="yes" todir="${test.output.dir}">
+        <fileset dir="${test.src.dir}">
+          <include name="**/*Test.java"/>
+        </fileset>
+      </batchtest>
+    </junit>
+  </target>
+
+  <!-- Package target --> 
+  <target name="package" depends="test">
+    <mkdir dir="${build.dir}/jar" />
+    <jar destfile="${build.dir}/jar/MyProject.jar" basedir="${output.dir}" />
+  </target>
+</project>

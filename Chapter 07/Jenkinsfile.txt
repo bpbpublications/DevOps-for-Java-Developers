@@ -1,0 +1,51 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout your source code repository
+                // Example: git 'https://github.com/your-username/your-repo.git'
+            }
+        }
+        
+        stage('Build and Test') {
+            steps {
+                // Build your code and run tests
+                // Example: sh 'mvn clean verify'
+            }
+        }
+        
+        stage('SonarQube Analysis') {
+            steps {
+                // Run SonarQube scanner to perform code analysis
+                script {
+                    def scannerHome = tool 'SonarQubeScanner' // Assumesnyou have SonarQube scanner configured in Jenkins
+                    def mavenHome = tool 'Maven' // Assumes you have Maven configured in Jenkins
+                    withEnv(["PATH+MAVEN=${mavenHome}/bin"]) {
+                        sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=my-project –
+		Dsonar.sources=./src -Dsonar.host.url=http://your-sonarqube-server:9000"
+                    }
+                }
+            }
+        }
+
+        stage('Quality Gate Check') {
+            steps {
+                // Evaluate the quality gate status
+                script {
+                    def qualityGateStatus = waitForQualityGate() // Assumes you have SonarQube 
+		plugin installed in Jenkins
+                    if (qualityGateStatus != 'OK') {
+                        error "Quality gate failed. Fix the issues and try again."
+                    }
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            // Clean up resources or perform any necessary post-build actions
+        }
+    }

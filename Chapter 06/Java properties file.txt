@@ -1,0 +1,27 @@
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
+public class MetadataExample {
+    public static void main(String[] args) {
+        Properties = new Properties();
+        try(FileInputStream fis = new FileInputStream
+("metadata.properties")) {
+            properties.load(fis);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        String jdkVersion = properties.getProperty("jdk.version");
+        String osName = properties.getProperty("os.name");
+        String osArch = properties.getProperty("os.arch");
+        String buildTimestamp = properties.getProperty("build.timestamp");
+        String commitHash = properties.getProperty("commit.hash");
+
+        // Use the metadata values as needed
+        System.out.println("JDK Version: " + jdkVersion);
+        System.out.println("OS Name: " + osName);
+        System.out.println("OS Arch: " + osArch);
+        System.out.println("Build Timestamp: " + buildTimestamp);
+        System.out.println("Commit Hash: " + commitHash);
+    }
+}

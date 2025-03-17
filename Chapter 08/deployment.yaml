@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    app.dekorate.io/vcs-url: "https://github.com/your/repo.git"  # Replace with your VCS URL
+  name: My_Spring_Boot_Application
+  labels:
+    app.kubernetes.io/version: "0.0.1-SNAPSHOT"
+    app.kubernetes.io/name: "My_Spring_Boot_Application"  # Updated name
+spec:
+  containers:
+    - env:
+        - name: KUBERNETES_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+      image: "repo/demo:0.0.1-SNAPSHOT"
+      imagePullPolicy: IfNotPresent
+      name: "My_Spring_Boot_Application"  # Updated name
+      ports:
+        - containerPort: 8080
+          name: "http"
+          protocol: TCP

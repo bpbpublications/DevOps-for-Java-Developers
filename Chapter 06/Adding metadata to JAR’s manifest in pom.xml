@@ -1,0 +1,22 @@
+2.	JAR's Manifest: To add metadata to the JAR's manifest, you can modify the pom.xml file to include the necessary configurations. Add the following plugin to the build section (Example 6.4):
+
+<build>
+    <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.11.0</version>
+            <configuration>
+                <archive>
+                    <manifestEntries>
+                        <jdk.version>17</jdk.version>
+                        <os.name>Windows</os.name>
+                        <os.arch>x86_64</os.arch>
+    <build.timestamp>2023-06-30   10:00:00</build.timestamp>
+                        <commit.hash>abc123</commit.hash>
+                    </manifestEntries>
+                </archive>
+            </configuration>
+        </plugin>
+    </plugins>
+</build>

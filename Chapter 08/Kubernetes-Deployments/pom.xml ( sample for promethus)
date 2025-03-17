@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <!-- Parent POM -->
+    <parent>
+    ……..
+    </parent>
+    <!-- Project Information -->
+    …………….
+    <!-- Standalone Properties -->
+    <name>My_Spring_Boot_Application</name> <!-- Specify your project name -->
+    <description>A sample Spring Boot application with JKube</description> <!-- Specify your project description -->
+
+    <!-- Properties -->
+    <properties>
+     …………
+    </properties>
+
+    <!-- Dependencies -->
+    <dependencies>
+        <!-- Add your Spring Boot dependencies here -->
+         ………..        
+        <!-- Add the Micrometer Prometheus registry dependency -->
+        <dependency>
+            <groupId>io.micrometer</groupId>
+            <artifactId>micrometer-registry-prometheus</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
+
+    <!-- Build Configuration -->
+    <build>
+        <plugins>
+            <!-- Eclipse JKube Plugin Configuration -->
+            <plugin>
+                <groupId>org.eclipse.jkube</groupId>
+                <artifactId>kubernetes-maven-plugin</artifactId>
+                <version>${jkube.version}</version>
+                <executions>
+                    <execution>
+                        <id>resource</id>
+                        <goals>
+                            <goal>resource</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- Specify the generator for Kubernetes resources (for example,spring-boot) -->
+                    <generator>
+                        <name>spring-boot</name>
+                        <!-- Expose port 9779 at the container-image level -->
+                        <ports>
+                            <port>9779</port>
+                        </ports>
+                    </generator>
+                    <!-- Expose the Prometheus port -->
+                    <enricher>
+                        <config>
+                            <jkube-prometheus>
+                                <prometheusPort>9779</prometheusPort>
+                            </jkube-prometheus>
+                        </config>
+                    </enricher>
+                    <!-- Specify the container image name -->
+                    <image>
+                        <name>${jkube.docker.registry}/${repository}/${project.name}:${tag}</name>
+                    </image>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
